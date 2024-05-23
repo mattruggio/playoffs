@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = '>= 2.7.6'
+  s.required_ruby_version = '>= 3.2.1'
 
   s.add_runtime_dependency('primitive')
   s.add_runtime_dependency('sorbet-runtime')
