@@ -11,4 +11,3 @@ class FirstPicker
     T.must(series.teams.first)
   end
 end
-
