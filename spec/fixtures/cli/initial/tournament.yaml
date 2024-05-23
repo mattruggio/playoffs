@@ -1,0 +1,201 @@
+--- !ruby/object:Playoffs::Tournament
+championship: &9 !ruby/object:Playoffs::Series
+  contestants:
+  - &5 !ruby/object:Playoffs::Series
+    contestants:
+    - &8 !ruby/object:Playoffs::Series
+      contestants:
+      - &7 !ruby/object:Playoffs::Series
+        contestants:
+        - !ruby/object:Playoffs::Team
+          id: BOS
+        - &1 !ruby/object:Playoffs::Series
+          contestants:
+          - &2 !ruby/object:Playoffs::Series
+            contestants:
+            - !ruby/object:Playoffs::Team
+              id: PHI
+            - !ruby/object:Playoffs::Team
+              id: MIA
+            best_of: &6 !ruby/object:Playoffs::BestOf
+              total: 1
+            winners_by_game: []
+            loser_advances_to: *1
+            winner_advances_to: &4 !ruby/object:Playoffs::Series
+              contestants:
+              - !ruby/object:Playoffs::Team
+                id: NYK
+              - *2
+              best_of: !ruby/object:Playoffs::BestOf
+                total: 7
+              winners_by_game: []
+              winner_advances_to: &3 !ruby/object:Playoffs::Series
+                contestants:
+                - &20 !ruby/object:Playoffs::Series
+                  contestants:
+                  - !ruby/object:Playoffs::Team
+                    id: MIL
+                  - !ruby/object:Playoffs::Team
+                    id: IND
+                  best_of: !ruby/object:Playoffs::BestOf
+                    total: 7
+                  winners_by_game: []
+                  winner_advances_to: *3
+                - *4
+                best_of: !ruby/object:Playoffs::BestOf
+                  total: 7
+                winners_by_game: []
+                winner_advances_to: *5
+          - &17 !ruby/object:Playoffs::Series
+            contestants:
+            - !ruby/object:Playoffs::Team
+              id: CHI
+            - !ruby/object:Playoffs::Team
+              id: ATL
+            best_of: *6
+            winners_by_game: []
+            winner_advances_to: *1
+          best_of: *6
+          winners_by_game: []
+          winner_advances_to: *7
+        best_of: !ruby/object:Playoffs::BestOf
+          total: 7
+        winners_by_game: []
+        winner_advances_to: *8
+      - &19 !ruby/object:Playoffs::Series
+        contestants:
+        - !ruby/object:Playoffs::Team
+          id: CLE
+        - !ruby/object:Playoffs::Team
+          id: ORL
+        best_of: !ruby/object:Playoffs::BestOf
+          total: 7
+        winners_by_game: []
+        winner_advances_to: *8
+      best_of: !ruby/object:Playoffs::BestOf
+        total: 7
+      winners_by_game: []
+      winner_advances_to: *5
+    - *3
+    best_of: !ruby/object:Playoffs::BestOf
+      total: 7
+    winners_by_game: []
+    winner_advances_to: *9
+  - &14 !ruby/object:Playoffs::Series
+    contestants:
+    - &16 !ruby/object:Playoffs::Series
+      contestants:
+      - &15 !ruby/object:Playoffs::Series
+        contestants:
+        - !ruby/object:Playoffs::Team
+          id: OKC
+        - &10 !ruby/object:Playoffs::Series
+          contestants:
+          - &11 !ruby/object:Playoffs::Series
+            contestants:
+            - !ruby/object:Playoffs::Team
+              id: LAL
+            - !ruby/object:Playoffs::Team
+              id: 'NO'
+            best_of: *6
+            winners_by_game: []
+            loser_advances_to: *10
+            winner_advances_to: &13 !ruby/object:Playoffs::Series
+              contestants:
+              - !ruby/object:Playoffs::Team
+                id: DEN
+              - *11
+              best_of: !ruby/object:Playoffs::BestOf
+                total: 7
+              winners_by_game: []
+              winner_advances_to: &12 !ruby/object:Playoffs::Series
+                contestants:
+                - &22 !ruby/object:Playoffs::Series
+                  contestants:
+                  - !ruby/object:Playoffs::Team
+                    id: MIN
+                  - !ruby/object:Playoffs::Team
+                    id: PHX
+                  best_of: !ruby/object:Playoffs::BestOf
+                    total: 7
+                  winners_by_game: []
+                  winner_advances_to: *12
+                - *13
+                best_of: !ruby/object:Playoffs::BestOf
+                  total: 7
+                winners_by_game: []
+                winner_advances_to: *14
+          - &18 !ruby/object:Playoffs::Series
+            contestants:
+            - !ruby/object:Playoffs::Team
+              id: SAC
+            - !ruby/object:Playoffs::Team
+              id: GS
+            best_of: *6
+            winners_by_game: []
+            loser_advances_to: *10
+          best_of: *6
+          winners_by_game: []
+          winner_advances_to: *15
+        best_of: !ruby/object:Playoffs::BestOf
+          total: 7
+        winners_by_game: []
+        winner_advances_to: *16
+      - &21 !ruby/object:Playoffs::Series
+        contestants:
+        - !ruby/object:Playoffs::Team
+          id: LAC
+        - !ruby/object:Playoffs::Team
+          id: DAL
+        best_of: !ruby/object:Playoffs::BestOf
+          total: 7
+        winners_by_game: []
+        winner_advances_to: *16
+      best_of: !ruby/object:Playoffs::BestOf
+        total: 7
+      winners_by_game: []
+      winner_advances_to: *14
+    - *12
+    best_of: !ruby/object:Playoffs::BestOf
+      total: 7
+    winners_by_game: []
+    winner_advances_to: *9
+  best_of: !ruby/object:Playoffs::BestOf
+    total: 7
+  winners_by_game: []
+rounds:
+- !ruby/object:Playoffs::Round
+  series:
+  - *2
+  - *17
+  - *11
+  - *18
+- !ruby/object:Playoffs::Round
+  series:
+  - *1
+  - *2
+  - *10
+  - *11
+- !ruby/object:Playoffs::Round
+  series:
+  - *7
+  - *19
+  - *20
+  - *4
+  - *15
+  - *21
+  - *22
+  - *13
+- !ruby/object:Playoffs::Round
+  series:
+  - *8
+  - *3
+  - *16
+  - *12
+- !ruby/object:Playoffs::Round
+  series:
+  - *5
+  - *14
+- !ruby/object:Playoffs::Round
+  series:
+  - *9

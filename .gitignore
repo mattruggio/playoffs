@@ -1,0 +1,8 @@
+.DS_Store
+*.gem
+/tmp
+/coverage
+Gemfile.lock
+/pkg
+sorbet/rbi/hidden-definitions/errors.txt
+2024.yaml
