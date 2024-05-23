@@ -2,16 +2,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
-# Override the default behavior of Cli which selects random winners when simulating.
-# This will make the sim method deterministic.
-module Playoffs
-  class Cli
-    def pick(series)
-      series.teams.first
-    end
-  end
-end
+require './spec/first_picker'
 
 # These tests can be viewed as snapshot-based integration/end-to-end tests since it acts like an application built
 # on top of the core classes supplied by this library. Testing most likely will start here for quick
@@ -20,7 +11,7 @@ end
 # This is also fairly brittle in that any changes to Psych's YAML serialization could end up producing different
 # results but still semantically equal.
 describe Playoffs::Cli do
-  subject(:cli) { described_class.new(io) }
+  subject(:cli) { described_class.new(io, simulator: FirstPicker.new) }
 
   let(:io) { StringIO.new }
   let(:eastern_team_ids) { %w[BOS NYK MIL CLE ORL IND PHI MIA CHI ATL] }

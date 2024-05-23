@@ -15,10 +15,25 @@ module Playoffs
     sig { returns(String) }
     attr_reader :script
 
-    sig { params(io: T.any(IO, StringIO), script: String).void }
-    def initialize(io, script: 'bin/playoffs')
+    sig { returns(Loader) }
+    attr_reader :loader
+
+    sig { returns(Simulator) }
+    attr_reader :simulator
+
+    sig do
+      params(
+        io: T.any(IO, StringIO),
+        script: String,
+        loader: Loader,
+        simulator: Simulator
+      ).void
+    end
+    def initialize(io, script: 'bin/playoffs', loader: Loader.new, simulator: RandomSimulator.new)
       @io = io
       @script = script
+      @loader = loader
+      @simulator = simulator
     end
 
     sig { params(args: T::Array[String]).returns(Cli) }
@@ -43,39 +58,6 @@ module Playoffs
       end
 
       self
-    end
-
-    protected
-
-    sig { overridable.params(path: String, tournament: Tournament).returns(Cli) }
-    def save(path, tournament)
-      FileUtils.mkdir_p(File.dirname(path))
-
-      File.open(path, 'w') { |out| YAML.dump(tournament, out) }
-
-      self
-    end
-
-    sig { overridable.params(path: String).returns(Tournament) }
-    def load(path)
-      YAML.load_file(
-        path,
-        permitted_classes: [
-          BestOf,
-          Round,
-          Series,
-          Team,
-          Tournament
-        ],
-        aliases: true
-      )
-    end
-
-    sig { overridable.params(series: Series).returns(Team) }
-    def pick(series)
-      index = rand(0..1)
-
-      T.must(series.teams[index])
     end
 
     private
@@ -119,28 +101,28 @@ module Playoffs
 
       tournament = Basketball.tournament_for(eastern_teams:, western_teams:)
 
-      save(path, tournament)
+      loader.save(path, tournament)
 
       self
     end
 
     sig { params(path: String, _action: String, _args: T::Array[String]).returns(Cli) }
     def run_bracket(path, _action, _args)
-      io.puts(load(path).print_bracket)
+      io.puts(loader.load(path).print_bracket)
 
       self
     end
 
     sig { params(path: String, _action: String, _args: T::Array[String]).returns(Cli) }
     def run_rounds(path, _action, _args)
-      io.puts(load(path).print_rounds)
+      io.puts(loader.load(path).print_rounds)
 
       self
     end
 
     sig { params(path: String, _action: String, _args: T::Array[String]).returns(Cli) }
     def run_up(path, _action, _args)
-      tournament = load(path)
+      tournament = loader.load(path)
 
       series = tournament.up_next
 
@@ -154,26 +136,26 @@ module Playoffs
       id = args[2].to_s
 
       team = Team.new(id)
-      tournament = load(path)
+      tournament = loader.load(path)
       series = tournament.up_next
 
       T.must(series).win(team)
 
       io.puts(series)
 
-      save(path, tournament)
+      loader.save(path, tournament)
 
       self
     end
 
     sig { params(path: String, _action: String, _args: T::Array[String]).returns(Cli) }
     def run_sim(path, _action, _args)
-      tournament = load(path)
+      tournament = loader.load(path)
 
       total = 0
       # while not nil (and assign series)
       while (series = tournament.up_next)
-        team = pick(series)
+        team = simulator.pick(series)
 
         series.win(team)
 
@@ -184,14 +166,14 @@ module Playoffs
 
       io.puts(tournament.winner.to_s)
 
-      save(path, tournament)
+      loader.save(path, tournament)
 
       self
     end
 
     sig { params(path: String, _action: String, _args: T::Array[String]).returns(Cli) }
     def run_winner(path, _action, _args)
-      tournament = load(path)
+      tournament = loader.load(path)
 
       io.puts(tournament.winner) if tournament.over?
 
